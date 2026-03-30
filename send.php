@@ -1,41 +1,83 @@
-<?php
-// Настройки
-$botToken = '8738584329:AAFMiTfTMs_Y3yiycOMeFPVwrTyis_tdfgQ'; // Замените на токен от BotFather
-$chatId = '-5197227740';     // Замените на ID чата
-
-// Получаем данные из формы
-$name = htmlspecialchars($_POST['name']);
-$email = htmlspecialchars($_POST['email']);
-$message = htmlspecialchars($_POST['message']);
-
-// Форматируем сообщение для Telegram
-$text = "📝 Новая анкета:\n\n";
-$text .= "👤 Имя: $name\n";
-$text .= "✉️ Email: $email\n";
-$text .= "💬 Сообщение: $message";
-
-// Отправляем в Telegram
-$url = "https://api.telegram.org/bot$botToken/sendMessage";
-$data = [
-    'chat_id' => $chatId,
-    'text' => $text,
-    'parse_mode' => 'HTML'
-];
-
-$options = [
-    'http' => [
-        'header' => "Content-type: application/x-www-form-urlencoded\r\n",
-        'method' => 'POST',
-        'content' => http_build_query($data)
-    ]
-];
-$context = stream_context_create($options);
-$result = file_get_contents($url, false, $context);
-
-if ($result === FALSE) {
-    http_response_code(500);
-    echo 'Ошибка отправки в Telegram';
-} else {
-    echo 'Успешно отправлено';
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
-?>
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 500px;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+p {
+    text-align: center;
+    color: #666;
+    margin-bottom: 2rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #555;
+    font-weight: 500;
+}
+
+input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+input:focus {
+    outline: none;
+    border-color: #2575fc;
+}
+
+button {
+    width: 100%;
+    padding: 1rem;
+    background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+button:hover {
+    transform: translateY(-2px);
+}
+
+@media (max-width: 480px) {
+    .container {
+        margin: 1rem;
+        padding: 1.5rem;
+    }
+}
