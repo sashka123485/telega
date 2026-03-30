@@ -2,32 +2,44 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Анкета</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Заполните анкету</h1>
-    <form id="myForm">
-        <label>Имя: <input type="text" name="name" required></label><br><br>
-        <label>Email: <input type="email" name="email" required></label><br><br>
-        <label>Сообщение: <textarea name="message" required></textarea></label><br><br>
-        <button type="submit">Отправить</button>
-    </form>
+    <div class="container">
+        <h1>Добро пожаловать!</h1>
+        <p>Заполните анкету ниже:</p>
+        
+        <form id="myForm">
+            <div class="form-group">
+                <label for="name">1. Имя</label>
+                <input type="text" id="name" name="name" required>
+            </div>
 
-    <script>
-        document.getElementById('myForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            const formData = new FormData(this);
-            const response = await fetch('send.php', {
-                method: 'POST',
-                body: formData
-            });
-            if (response.ok) {
-                alert('Анкета отправлена!');
-                this.reset();
-            } else {
-                alert('Ошибка отправки!');
-            }
-        });
-    </script>
+            <div class="form-group">
+                <label for="position">2. В каком классе учитесь</label>
+                <input type="text" id="position" name="position" required>
+            </div>
+
+            <div class="form-group">
+                <label for="school">3. Школа</label>
+                <input type="text" id="school" name="school" required>
+            </div>
+
+            <div class="form-group">
+                <label for="city">4. Город</label>
+                <input type="text" id="city" name="city" required>
+            </div>
+
+            <div class="form-group">
+                <label for="age">5. Сколько лет</label>
+                <input type="number" id="age" name="age" min="6" max="100" required>
+            </div>
+
+            <button type="submit">Отправить анкету</button>
+        </form>
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>
